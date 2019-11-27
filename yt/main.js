@@ -2,22 +2,41 @@ const SHA256 = require("crypto-js/sha256");
 
 class Block {
 	constructor(timestamp, data, previousHash = "") {
+		//this.index = index;
 		this.previousHash = previousHash;
 		this.timestamp = timestamp;
 		this.data = data;
 		this.hash = this.calculateHash();
+		this.nonce = 0;
 	}
 
 	calculateHash() {
 		return SHA256(
-			this.previousHash + this.timestamp + JSON.stringify(this.data)
+			this.index +
+				this.previousHash +
+				this.timestamp +
+				JSON.stringify(this.data) +
+				this.nonce
 		).toString();
+	}
+
+	mineBlock(difficulty) {
+		// Keep changing the nonce until the hash of our block starts with enough zero's.
+		while (
+			this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")
+		) {
+			this.nonce++;
+			this.hash = this.calculateHash();
+		}
+
+		console.log("BLOCK MINED: " + this.hash);
 	}
 }
 
 class Blockchain {
 	constructor() {
 		this.chain = [this.createGenesisBlock()];
+		this.difficulty = 5;
 	}
 
 	createGenesisBlock() {
@@ -28,14 +47,20 @@ class Blockchain {
 		return this.chain[this.chain.length - 1];
 	}
 
+	// addBlock(newBlock) {
+	// 	// The new block needs to point to the hash of the latest block on the chain.
+	// 	newBlock.previousHash = this.getLatestBlock().hash;
+
+	// 	// Calculate the hash of the new block
+	// 	newBlock.hash = newBlock.calculateHash();
+
+	// 	// Now the block is ready and can be added to chain!
+	// 	this.chain.push(newBlock);
+	// }
+
 	addBlock(newBlock) {
-		// The new block needs to point to the hash of the latest block on the chain.
 		newBlock.previousHash = this.getLatestBlock().hash;
-
-		// Calculate the hash of the new block
-		newBlock.hash = newBlock.calculateHash();
-
-		// Now the block is ready and can be added to chain!
+		newBlock.mineBlock(this.difficulty);
 		this.chain.push(newBlock);
 	}
 
@@ -68,17 +93,27 @@ class Blockchain {
 }
 
 let savjeeCoin = new Blockchain();
-savjeeCoin.addBlock(new Block("20/07/2017", { amount: 4 }));
-savjeeCoin.addBlock(new Block("22/07/2017", { amount: 10 }));
 
+// TESTE DE PROCESSAMENTO
+console.log("Mining block 1...");
+savjeeCoin.addBlock(new Block(1, "20/07/2017", { amount: 4 }));
+
+console.log("Mining block 2...");
+savjeeCoin.addBlock(new Block(2, "20/07/2017", { amount: 8 }));
+
+// 1 teste
+//savjeeCoin.addBlock(new Block("20/07/2017", { amount: 4 }));
+//savjeeCoin.addBlock(new Block("22/07/2017", { amount: 10 }));
 //console.log(JSON.stringify(savjeeCoin, null, 4));
 
-console.log("Blockchain valid? " + savjeeCoin.isChainValid());
+//2 e 3 teste
 
-// Tamper with the chain!
-savjeeCoin.chain[1].data = { amount: 100 };
-// Recalculate its hash, to make everything appear to be in order!
-savjeeCoin.chain[1].hash = savjeeCoin.chain[1].calculateHash();
+// console.log("Blockchain valid? " + savjeeCoin.isChainValid());
 
-// Check if it's valid again
-console.log("Blockchain valid? " + savjeeCoin.isChainValid()); // will return false!
+// // Tamper with the chain!
+// savjeeCoin.chain[1].data = { amount: 100 };
+// // Recalculate its hash, to make everything appear to be in order!
+// savjeeCoin.chain[1].hash = savjeeCoin.chain[1].calculateHash();
+
+// // Check if it's valid again
+// console.log("Blockchain valid? " + savjeeCoin.isChainValid()); // will return false!
