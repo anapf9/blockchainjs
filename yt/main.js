@@ -1,11 +1,18 @@
 const SHA256 = require("crypto-js/sha256");
 
+class Transaction {
+	constructor(fromAddress, toAddress, amount) {
+		this.fromAddress = fromAddress;
+		this.toAddress = toAddress;
+		this.amount = amount;
+	}
+}
+
 class Block {
-	constructor(timestamp, data, previousHash = "") {
-		//this.index = index;
+	constructor(timestamp, transactions, previousHash = "") {
 		this.previousHash = previousHash;
 		this.timestamp = timestamp;
-		this.data = data;
+		this.transactions = transactions;
 		this.hash = this.calculateHash();
 		this.nonce = 0;
 	}
@@ -15,7 +22,7 @@ class Block {
 			this.index +
 				this.previousHash +
 				this.timestamp +
-				JSON.stringify(this.data) +
+				JSON.stringify(this.transactions) +
 				this.nonce
 		).toString();
 	}
@@ -36,7 +43,9 @@ class Block {
 class Blockchain {
 	constructor() {
 		this.chain = [this.createGenesisBlock()];
-		this.difficulty = 5;
+		this.difficulty = 3;
+		this.pendingTransactions = [];
+		this.miningReward = 100;
 	}
 
 	createGenesisBlock() {
@@ -47,21 +56,37 @@ class Blockchain {
 		return this.chain[this.chain.length - 1];
 	}
 
-	// addBlock(newBlock) {
-	// 	// The new block needs to point to the hash of the latest block on the chain.
-	// 	newBlock.previousHash = this.getLatestBlock().hash;
+	minePendingTransactions(miningRewardAddress) {
+		let block = new Block("02/01/2017", this.pendingTransactions);
+		block.mineBlock(this.difficulty);
 
-	// 	// Calculate the hash of the new block
-	// 	newBlock.hash = newBlock.calculateHash();
+		console.log("Block sucessefully mined!");
+		this.chain.push(block);
 
-	// 	// Now the block is ready and can be added to chain!
-	// 	this.chain.push(newBlock);
-	// }
+		this.pendingTransactions = [
+			new Transaction(null, miningRewardAddress, this.miningReward)
+		];
+	}
 
-	addBlock(newBlock) {
-		newBlock.previousHash = this.getLatestBlock().hash;
-		newBlock.mineBlock(this.difficulty);
-		this.chain.push(newBlock);
+	createTransaction(transaction) {
+		this.pendingTransactions.push(transaction);
+	}
+
+	getBalanceOfAddress(address) {
+		let balance = 0;
+		for (const block of this.chain) {
+			for (const trans of block.transactions) {
+				if (trans.fromAddress === address) {
+					balance -= trans.amount;
+				}
+
+				if (trans.toAddress === address) {
+					balance += trans.amount;
+				}
+			}
+		}
+
+		return balance;
 	}
 
 	isChainValid() {
@@ -75,6 +100,7 @@ class Blockchain {
 			if (currentBlock.hash !== currentBlock.calculateHash()) {
 				return false;
 			}
+			Date.now();
 
 			// Check if this block actually points to the previous block (hash)
 			if (currentBlock.previousHash !== previousBlock.hash) {
@@ -94,26 +120,36 @@ class Blockchain {
 
 let savjeeCoin = new Blockchain();
 
-// TESTE DE PROCESSAMENTO
-console.log("Mining block 1...");
-savjeeCoin.addBlock(new Block(1, "20/07/2017", { amount: 4 }));
+savjeeCoin.createTransaction(new Transaction("address1", "address2", 100));
+savjeeCoin.createTransaction(new Transaction("address2", "address1", 50));
 
-console.log("Mining block 2...");
-savjeeCoin.addBlock(new Block(2, "20/07/2017", { amount: 8 }));
+console.log("Starting the miner...");
+savjeeCoin.minePendingTransactions("xaviers-address");
 
-// 1 teste
-//savjeeCoin.addBlock(new Block("20/07/2017", { amount: 4 }));
-//savjeeCoin.addBlock(new Block("22/07/2017", { amount: 10 }));
-//console.log(JSON.stringify(savjeeCoin, null, 4));
+//console.log('')
 
-//2 e 3 teste
+console.log(
+	"Balance of xavier is",
+	savjeeCoin.getBalanceOfAddress("xaviers-address")
+);
 
-// console.log("Blockchain valid? " + savjeeCoin.isChainValid());
+console.log("Starting the miner again...");
+savjeeCoin.minePendingTransactions("xaviers-address");
 
-// // Tamper with the chain!
-// savjeeCoin.chain[1].data = { amount: 100 };
-// // Recalculate its hash, to make everything appear to be in order!
-// savjeeCoin.chain[1].hash = savjeeCoin.chain[1].calculateHash();
+console.log(
+	"Balance of xavier is",
+	savjeeCoin.getBalanceOfAddress("xaviers-address")
+);
 
-// // Check if it's valid again
-// console.log("Blockchain valid? " + savjeeCoin.isChainValid()); // will return false!
+console.log(
+	"Balance of xavier is",
+	savjeeCoin.getBalanceOfAddress("xaviers-address")
+);
+
+console.log("Starting the miner again...");
+savjeeCoin.minePendingTransactions("xaviers-address");
+
+console.log(
+	"Balance of xavier is",
+	savjeeCoin.getBalanceOfAddress("xaviers-address")
+);
