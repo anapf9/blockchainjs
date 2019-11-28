@@ -126,8 +126,6 @@ savjeeCoin.createTransaction(new Transaction("address2", "address1", 50));
 console.log("Starting the miner...");
 savjeeCoin.minePendingTransactions("xaviers-address");
 
-//console.log('')
-
 console.log(
 	"Balance of xavier is",
 	savjeeCoin.getBalanceOfAddress("xaviers-address")

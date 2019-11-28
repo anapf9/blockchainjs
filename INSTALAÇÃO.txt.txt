@@ -1,0 +1,19 @@
+----- MULTICHAIN -----
+su (enter root password)
+
+cd /tmp
+wget https://www.multichain.com/download/multichain-2.0.3.tar.gz
+tar -xvzf multichain-2.0.3.tar.gz
+cd multichain-2.0.3
+mv multichaind multichain-cli multichain-util /usr/local/bin (to make easily accessible on the command line)
+
+exit (to return to your regular user)
+
+DOCS: https://www.multichain.com/download-community/
+
+TUTORIAL: https://pplware.sapo.pt/internet/blockchain-para-uso-pessoal/
+
+----- GETH -----
+DOCS: https://geth.ethereum.org/
+
+TUTORIAL: https://medium.com/blockchainbr/configurando-e-executando-um-blockchain-63ee0ac0462a
