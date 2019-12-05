@@ -1,0 +1,17 @@
+./genesis.sh 
+
+./bootnode.sh
+./getbootnodeurl.sh
+
+./runnode.sh node1
+docker logs ethereum-node1
+./showpeers.sh node1
+
+./runminer.sh miner1
+docker logs -f ethereum-miner1
+
+docker logs ethereum-node1
+./showpeers.sh miner1
+
+
+./showpeers.sh 

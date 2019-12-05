@@ -1,0 +1,73 @@
+As blockchains ganharam recentemente um impulso significativo
+um método emergente para verificação instantânea de transações
+entre empresas, organizações públicas ou privadas e indústrias. No entanto, o uso potencial dessa tecnologia disruptiva
+desovar para cada aplicativo que precisa evoluir de um
+entidade de autorização centralizada que atua como intermediário confiável
+ou, às vezes, uma âncora de confiança verificável de terceiros,
+modelo de autenticação puramente distribuído.
+
+Uma blockchain é uma estrutura de dados distribuída à prova de violações
+que é replicado e compartilhado entre os membros de uma rede.
+Essa estrutura de dados atua como um log cujos elementos (ou blocos)
+são agrupados em lotes com entradas com registro de data e hora, identificadas exclusivamente por
+um hash criptográfico específico. Esse hash é gerado também
+no conteúdo ou no cabeçalho do bloco, contém um subconjunto do
+registro geral de transações feito por todos os nós interconectados
+com acesso adequado ao sistema e inclui uma referência a
+os blocos anteriores hash. Este método forma um link entre
+blocos que os conectam a uma forma de cadeia, a blockchain
+[19] como mostra a figura 3. O único bloco ligeiramente diferente é
+o primeiro bloco da cadeia, chamado Genesis, que é distribuído
+a todos os clientes que tenham acesso à rede blockchain e
+pode ser usado como uma "chave" para o conteúdo criptografado do
+blockchain. Através deste processo e mediante determinadas solicitações
+para nós vizinhos com instantâneos complementares de
+blockchain, cada nó se torna capaz de analisar o
+conjunto completo de informações armazenadas na estrutura geral de dados. este
+fornece uma impressão precisa de toda a rede em qualquer
+dado tempo [19].
+
+Para entender completamente o valor da blockchain e suas
+importância para o ecossistema IoT, é preciso analisar o núcleo
+diferença entre ledgers centralizados e distribuídos. No
+primeira abordagem, mostrada na Fig. 4 (a), a existência de uma Central
+A Autoridade de Verificação é obrigatória para liquidar transações,
+enquanto muitos intermediários estão envolvidos na validação do
+integridade de qualquer transação. O razão pode ser alterado por
+qualquer parte com acesso a ele e dados da transação são propensos
+ataques desde que uma única violação de segurança possa ser considerada
+inconsistência de todo o sistema. Na segunda abordagem,
+a transação do razão distribuída é liquidada automaticamente enquanto
+são necessários intermediários para verificar sua validade. Todas as transacções
+são transparentes e visíveis para todas as partes em tempo real, com cada
+sendo o carimbo de data e hora, portanto imutável uma vez
+gravado na blockchain.
+
+Usando blockchain como o principal arquivo distribuído de um determinado
+sistema, permite que nós autorizados rastreiem e verifiquem instantaneamente
+dados gerados por dispositivos IoT, uma vez gravados neste
+estrutura de dados, independentemente do volume ou do número geral
+de fontes. Um banco de dados criptografado e distribuído é inerentemente
+resiliente, sem um único ponto de falha e desde que o sistema
+é atualizado regularmente com o bloco mais recente, acessando qualquer
+os nós ativos garantem informações atualizadas corretamente. Uma vez
+criadas, as cadeias de blocos são imutáveis ​​e incorruptíveis. Algoritmos matematicamente comprováveis ​​permitem verificação contínua
+e calibração da validade de uma blockchain enquanto tentada
+modificações são sinalizadas imediatamente. Essa característica
+anula ataques de adulteração de dados, pois os nós maliciosos devem
+obter o bloco Genesis para decifrar qualquer informação de
+o blockchain, uma tarefa bastante impossível.
+
+Introduzir uma camada de segurança baseada em blockchain na arquitetura proposta da Fig. 2 agora faz muito mais sentido. Uma implantação na nuvem em que todos os sensores e nós interconectados
+ter acesso ao bloco Genesis, podendo assim criar
+blocos imutáveis ​​que atualizam o blockchain existente, torna
+tarefas de autenticação realizadas pelo Secure Gateway diretamente. Mensagens benevolentes podem ser categorizadas instantaneamente
+como parte da blockchain afiliada, basta verificar sua
+blocos mais recentes. Nenhuma inspeção abrangente de pacotes é necessária
+e o processo geral será rapidamente concluído. Entre nuvens
+a comunicação também se tornará muito mais eficiente, pois
+o acesso a uma implantação na nuvem vizinha será concedido
+através de uma cópia do bloco Genesis necessário. Esse nível de
+A transparência ainda permite que o IoT Server of Cloud A obtenha
+informações originárias do sensor B da nuvem B (fig. 2),
+desde que o blockchain permite redes sem confiança, conforme definido em [19]

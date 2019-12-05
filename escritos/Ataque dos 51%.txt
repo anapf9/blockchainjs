@@ -1,0 +1,8 @@
+No ataque dos 51% os invasores usam uma grande infraestrutura de computadores para minerar (adicionar novas transações certificadas ao sistema do blockchain) 
+Uma vez que esses mineradores ganhem controle sobre mais da metade do poder computacional da rede, eles podem criar uma “versão alternativa” dela sem que os usuários percebam, revertendo transações que já foram feitas e “regastando” valores que já haviam sido investidos em transações (prática conhecida como double spend), direcionando as crptomoedas a si próprios.
+
+Um Ataque de 51% pode ser executado contra a Bitcoin ou qualquer outra rede blockchain, no qual uma única entidade ou organização consegue controlar a maioria do hash rate, podendo causar e explorar falhas no sistema. Em outras palavras, o agente de ataque teria poder de mineração suficiente para excluir ou modificar a ordem das transações de forma intencional.
+
+Um ataque desse nível possibilita que entidades maliciosas consigam retroceder transações que eles ou elas fizeram enquanto estavam no controle, o que poderia acarretar em um problema de double-spending (gasto duplo). Um Ataque de 51% de sucesso também possibilitaria o fraudador de impedir que algumas ou todas as transações sejam confirmadas (processo conhecido como ataque de negação de serviço) ou impedir que alguns ou todos os mineradores continuem seu trabalho, resultando no que chamamos de monopólio da mineração.
+
+Por outro lado, existem algumas coisas que o ataque de 51% não pode fazer, como reveter transações de outros usuários ou impedir que novas transações sejam criadas e transmitidas à rede. Além disso, a entidade maliciosa não é capaz de criar novas moedas do nada, mudar a recompensa dos blocos, ou roubar moedas que nunca lhes pertenceram.
